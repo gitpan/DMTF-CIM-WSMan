@@ -14,7 +14,7 @@ use MIME::Base64;
 use Carp;
 
 use version;
-our $VERSION = qv('0.03');
+our $VERSION = qv('0.04');
 
 our @ISA=qw(DMTF::CIM);
 
@@ -1421,7 +1421,7 @@ DMTF::CIM::WSMan - Provies WSMan CIM binding
 
 =head1 VERSION
 
-This document describes DMTF::CIM::WSMan version 0.03
+This document describes DMTF::CIM::WSMan version 0.04
 
 
 =head1 SYNOPSIS
