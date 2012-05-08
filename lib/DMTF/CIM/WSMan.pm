@@ -14,7 +14,7 @@ use MIME::Base64;
 use Carp;
 
 use version;
-our $VERSION = qv('0.04');
+our $VERSION = qv('0.05');
 
 our @ISA=qw(DMTF::CIM);
 
@@ -1077,7 +1077,7 @@ sub _stringify
 					$s=0-$s;
 				}
 				my $duration=DateTime::Duration->new(
-					year=>$y,
+					years=>$y,
 					months=>$m,
 					days=>$d,
 					hours=>$h,
@@ -1416,12 +1416,12 @@ __END__
 
 =head1 NAME
 
-DMTF::CIM::WSMan - Provies WSMan CIM binding
+DMTF::CIM::WSMan - Provides WSMan CIM binding
 
 
 =head1 VERSION
 
-This document describes DMTF::CIM::WSMan version 0.04
+This document describes DMTF::CIM::WSMan version 0.05
 
 
 =head1 SYNOPSIS
@@ -1512,7 +1512,7 @@ $ws->quirk('incorrect_string_octetstring', 1);
 
 The Microsoft winrm servers up to at least the 3.0 Beta do not support
 an EndpointReference in the Object tag of an association querey and
-require the association_object_wrong quirt to be set true using
+require the association_object_wrong quirk to be set true using
 $ws->quirk('association_object_wrong', 1);
 
 =head1 BUGS AND LIMITATIONS

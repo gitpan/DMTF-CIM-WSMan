@@ -1,4 +1,4 @@
-DMTF-CIM-WSMan version 0.04
+DMTF-CIM-WSMan version 0.05
 
 This module binds the DMTF::WSMan module with DMTF::CIM to provide for CIM
 over WS-Management access as defined in various DMTF standards.

@@ -1,5 +1,9 @@
 Revision history for DMTF-CIM-WSMan
 
+0.05  XXX
+       Fix error in parsing intervals
+       Clean up typos in POD
+
 0.04  Mon May 7 2012
        Remove POD and Perl::Critic tests
 
