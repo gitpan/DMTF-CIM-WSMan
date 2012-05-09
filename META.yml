@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               DMTF-CIM-WSMan
-version:            v0.05
+version:            v0.06
 abstract:           Provides WSMan CIM binding
 author:
     - Stephen James Hurd <shurd@broadcom.com>

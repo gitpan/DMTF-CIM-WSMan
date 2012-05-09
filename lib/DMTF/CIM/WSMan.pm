@@ -14,7 +14,7 @@ use MIME::Base64;
 use Carp;
 
 use version;
-our $VERSION = qv('0.05');
+our $VERSION = qv('0.06');
 
 our @ISA=qw(DMTF::CIM);
 
@@ -837,6 +837,9 @@ sub _get_instances
 			carp('Unable to locate response object on response');
 			return;
 		}
+		if(!defined $items) {
+			return ();
+		}
 		for(my $item=$items->first_child;defined $item;$item=$item->next_sibling) {
 			next if($item->tag eq '#PCDATA');
 			if($mode eq 'paths') {
@@ -860,8 +863,8 @@ sub _get_instances
 					carp('Item returned with no EPR');
 					return;
 				}
-				$ret->uri($self->_parse_reference($epr));
-				return $ret;
+				$obj->uri($self->_parse_reference($epr));
+				push @{$ret},$obj;
 			}
 		}
 	}
@@ -1421,7 +1424,7 @@ DMTF::CIM::WSMan - Provides WSMan CIM binding
 
 =head1 VERSION
 
-This document describes DMTF::CIM::WSMan version 0.05
+This document describes DMTF::CIM::WSMan version 0.06
 
 
 =head1 SYNOPSIS
@@ -1455,15 +1458,15 @@ credentials (ie: C<< $wsm->current_uri( 'wsman.wbem://user:pass@example.com:623/
 
 =item C<< current_wsman >>
 
-Returns the L<DMTF::WSMan>> object associated with the current URI
+Returns the L<DMTF::WSMan> object associated with the current URI
 
 =item C<< current_epr >>
 
 Returns the current EPR object derived from the current URI.
 
-=item C<< URItoEPR >>
+=item C<< URItoEPR( I<uri> ) >>
 
-Converts a L<URI> object into an EPR object for L<DMTF::WSMan>.
+Converts the L<URI> object into an EPR object for L<DMTF::WSMan>.
 
 =item C<< quirks( [I<name> [,I<value>] ) >>
 
@@ -1489,17 +1492,17 @@ DMTF::CIM::WSMan requires no configuration files or environment variables.
 
 =over
 
-=item DMTF::WSMan (available from the same location as this module)
+=item L<DMTF::WSMan> (available from the same location as this module)
 
-=item DMTF::CIM (available from the same location as this module)
+=item L<DMTF::CIM> (available from the same location as this module)
 
-=item URI (available from CPAN)
+=item L<URI> (available from CPAN)
 
-=item URI::Escape (available from CPAN)
+=item L<URI::Escape> (available from CPAN)
 
-=item XML::Twig (available from CPAN)
+=item L<XML::Twig> (available from CPAN)
 
-=item DateTime (available from CPAN)
+=item L<DateTime> (available from CPAN)
 
 =back
 

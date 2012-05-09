@@ -1,12 +1,17 @@
 Revision history for DMTF-CIM-WSMan
 
-0.05  XXX
+0.06  Wed May 9 2012
+       Fix handling of Object and EPR style enumerations
+       More POD cleanups
+
+0.05  Mon May 7 2012
        Fix error in parsing intervals
+       Fix error parsing enumeration responses with zero results
        Clean up typos in POD
 
 0.04  Mon May 7 2012
        Remove POD and Perl::Critic tests
 
 0.03  Tue Apr 24 2012
-       Initial public release.
+       Initial public release
 
