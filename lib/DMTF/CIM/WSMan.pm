@@ -14,7 +14,7 @@ use MIME::Base64;
 use Carp;
 
 use version;
-our $VERSION = qv('0.06');
+our $VERSION = qv('0.07');
 
 our @ISA=qw(DMTF::CIM);
 
@@ -871,6 +871,16 @@ sub _get_instances
 	return @{$ret};
 }
 
+sub _XML_escape
+{
+	my $val=shift;
+	$val=~s/&/&amp;/g;
+	$val=~s/</&lt;/g;
+	$val=~s/"/&quot;/g;
+	$val=~s/'/&apos;/g;
+	return $val;
+}
+
 sub _instance_to_XML
 {
 	my $self=shift;
@@ -929,7 +939,7 @@ sub _instance_to_XML
 				elsif($prop->type eq 'datetime') {
 					$value="<$wsman->{Context}{cim}{prefix}:CIM_DateTime>$value</$wsman->{Context}{cim}{prefix}:CIM_DateTime>";
 				}
-				$ret .= "<p:".($prop->name).">$value</p:".($prop->name).">";
+				$ret .= "<p:".($prop->name).">"._XML_escape($value)."</p:".($prop->name).">";
 			}
 		}
 		else {
@@ -939,7 +949,7 @@ sub _instance_to_XML
 			elsif($prop->type eq 'datetime') {
 				$val="<$wsman->{Context}{cim}{prefix}:CIM_DateTime>$val</$wsman->{Context}{cim}{prefix}:CIM_DateTime>";
 			}
-			$ret .= "<p:".($prop->name).">$val</p:".($prop->name).">";
+			$ret .= "<p:".($prop->name).">"._XML_escape($val)."</p:".($prop->name).">";
 		}
 	}
 	$ret.="</p:$class>";
@@ -1424,7 +1434,7 @@ DMTF::CIM::WSMan - Provides WSMan CIM binding
 
 =head1 VERSION
 
-This document describes DMTF::CIM::WSMan version 0.06
+This document describes DMTF::CIM::WSMan version 0.07
 
 
 =head1 SYNOPSIS
