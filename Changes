@@ -1,5 +1,13 @@
 Revision history for DMTF-CIM-WSMan
 
+0.09  Mon Sept 9 2013
+       Strip <?xml headers from enumeration results if included and
+       correctly handle when the envelope has whitespace before or
+       after it.
+
+       Fix handling of a pull response with no items after an enumerate
+       response that ends the ssequence.
+
 0.08  Wed Oct 17 2012
        Fix handling of partial paths that contain a colon
 	   Correctly parse enumeration results from targets that don't support

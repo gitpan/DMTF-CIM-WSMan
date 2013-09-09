@@ -14,7 +14,7 @@ use MIME::Base64;
 use Carp;
 
 use version;
-our $VERSION = qv('0.08');
+our $VERSION = qv('0.09');
 
 our @ISA=qw(DMTF::CIM);
 
@@ -824,6 +824,7 @@ sub _get_instances
 
 	# TODO: We need to perform additional filtering on the arguments since WS-Management doesn't support them all.
 	my $rawxml=$wsman->enumerate(epr=>$target_epr, mode=>$enum_mode, filter=>$filterstr);
+	$rawxml=~s/<\?\s*xml.*?\?>[^<]*//;
 	my $xml=$self->{TWIG}->parse('<allreplies>'.$rawxml.'</allreplies>');
 	if(!defined $xml) {
 		carp("Error parsing XML");
@@ -831,6 +832,7 @@ sub _get_instances
 	}
 	my $ret=[];
 	for(my $reply=$xml->root->first_child('s:Envelope');defined $reply;$reply=$reply->next_sibling) {
+		next if (!defined $reply->first_child('s:Body'));
 		if($self->_checkfault($reply)) {
 			return;
 		}
@@ -847,7 +849,7 @@ sub _get_instances
 		}
 		if(!defined $items) {
 			next if($response->local_name eq 'EnumerateResponse');	# The EnumerateResponse may not have an Items in it.
-			return ();
+			return @{$ret};
 		}
 		for(my $item=$items->first_child;defined $item;$item=$item->next_sibling) {
 			next if($item->tag eq '#PCDATA');
@@ -1443,7 +1445,7 @@ DMTF::CIM::WSMan - Provides WSMan CIM binding
 
 =head1 VERSION
 
-This document describes DMTF::CIM::WSMan version 0.08
+This document describes DMTF::CIM::WSMan version 0.09
 
 
 =head1 SYNOPSIS
